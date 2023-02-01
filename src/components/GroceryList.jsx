@@ -1,29 +1,4 @@
-import { useState } from 'react';
-
-const groceryList = [
-	{ id: 1, checked: false, item: 'Bread' },
-	{ id: 2, checked: false, item: 'Butter' },
-	{ id: 3, checked: false, item: 'Almond' },
-];
-
-const GroceryList = () => {
-	const [groceryItems, setGroceryItems] = useState(groceryList);
-
-	const onCheckHandler = id => {
-		const groceryListItems = groceryItems.map(item =>
-			item.id === id ? { ...item, checked: !item.checked } : item,
-		);
-
-		setGroceryItems(groceryListItems);
-		localStorage.setItem('grocery', JSON.stringify(groceryListItems));
-	};
-
-	const onRemoveItemHandler = id => {
-		const groceryListItems = groceryItems.filter(item => item.id !== id);
-		setGroceryItems(groceryListItems);
-		localStorage.setItem('grocery', JSON.stringify(groceryListItems));
-	};
-
+const GroceryList = ({ groceryItems, onCheckHandler, onRemoveItemHandler }) => {
 	return (
 		<div>
 			{groceryItems.length ? (
