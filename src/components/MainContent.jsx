@@ -12,27 +12,42 @@ const MainContent = () => {
 	const [groceryItems, setGroceryItems] = useState(grocery);
 	const [enteredItem, setEnteredItem] = useState('');
 
+	const setAndSaveItems = newGroceryItems => {
+		setGroceryItems(newGroceryItems);
+		localStorage.setItem('grocery', JSON.stringify(newGroceryItems));
+	};
+
+	const addItem = item => {
+		const id = groceryItems.length
+			? groceryItems[groceryItems.length - 1].id + 1
+			: 1;
+		const newGroceryItem = { id: id, checked: false, item: item };
+		const groceryListItems = [...groceryItems, newGroceryItem];
+		setAndSaveItems(groceryListItems);
+	};
+
 	const onCheckHandler = id => {
 		const groceryListItems = groceryItems.map(item =>
 			item.id === id ? { ...item, checked: !item.checked } : item,
 		);
 
-		setGroceryItems(groceryListItems);
-		localStorage.setItem('grocery', JSON.stringify(groceryListItems));
+		setAndSaveItems(groceryListItems);
 	};
 
 	const onRemoveItemHandler = id => {
 		const groceryListItems = groceryItems.filter(item => item.id !== id);
-		setGroceryItems(groceryListItems);
-		localStorage.setItem('grocery', JSON.stringify(groceryListItems));
+		setAndSaveItems(groceryListItems);
 	};
 
 	const submitHandler = e => {
 		e.preventDefault();
+		if (!enteredItem) return;
+		addItem(enteredItem);
+		setEnteredItem('');
 	};
 
 	return (
-		<div className="flex flex-col gap-8 p-2 shadow-md">
+		<div className="flex flex-col gap-8 p-2 shadow-md overflow-hidden">
 			<AddItem
 				enteredItem={enteredItem}
 				setEnteredItem={setEnteredItem}
