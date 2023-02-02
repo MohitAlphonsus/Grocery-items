@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import AddItem from './AddItem';
 import GroceryList from './GroceryList';
+import SearchItem from './SearchItem';
 
 const grocery = [
 	{ id: 1, checked: false, item: 'Bread' },
@@ -9,8 +10,11 @@ const grocery = [
 ];
 
 const MainContent = () => {
-	const [groceryItems, setGroceryItems] = useState(grocery);
+	const [groceryItems, setGroceryItems] = useState(
+		JSON.parse(localStorage.getItem('grocery')),
+	);
 	const [enteredItem, setEnteredItem] = useState('');
+	const [search, setSearch] = useState('');
 
 	const setAndSaveItems = newGroceryItems => {
 		setGroceryItems(newGroceryItems);
@@ -47,14 +51,17 @@ const MainContent = () => {
 	};
 
 	return (
-		<div className="flex flex-col gap-8 p-2 shadow-md overflow-hidden">
+		<div className="flex flex-col gap-1 p-2 shadow-md overflow-hidden">
 			<AddItem
 				enteredItem={enteredItem}
 				setEnteredItem={setEnteredItem}
 				submitHandler={submitHandler}
 			/>
+			<SearchItem search={search} setSearch={setSearch} />
 			<GroceryList
-				groceryItems={groceryItems}
+				groceryItems={groceryItems.filter(item =>
+					item.item.toLowerCase().includes(search.toLowerCase()),
+				)}
 				setGroceryItems={setGroceryItems}
 				onCheckHandler={onCheckHandler}
 				onRemoveItemHandler={onRemoveItemHandler}
