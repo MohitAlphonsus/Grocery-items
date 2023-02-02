@@ -2,7 +2,7 @@ import MainContent from './components/MainContent';
 
 function App() {
 	return (
-		<div className="overflow-hidden my-4 h-[calc(100vh-2rem)] grid grid-rows-app-specific gap-2 container max-w-lg mx-auto ">
+		<div className="overflow-hidden my-4 h-[calc(100vh-2rem)] grid grid-rows-app-specific gap-2 container max-w-lg mx-auto shadow-xl p-2 rounded-lg">
 			<header className="shadow-md text-center p-1 pb-4 rounded-lg">
 				<h1 className="text-4xl">Grocery List</h1>
 			</header>
