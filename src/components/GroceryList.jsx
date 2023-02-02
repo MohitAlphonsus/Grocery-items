@@ -1,6 +1,6 @@
 const GroceryList = ({ groceryItems, onCheckHandler, onRemoveItemHandler }) => {
 	return (
-		<div className="overflow-y-scroll h-full pr-2">
+		<div className="overflow-y-scroll h-full pr-2 mt-8">
 			{groceryItems.length ? (
 				<ul className="flex flex-col gap-2">
 					{groceryItems.map(listItem => (
